@@ -1,26 +1,3 @@
-/*
- * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  br.inatel.publishermanager.filter.RequestFilter
- *  jakarta.servlet.FilterChain
- *  jakarta.servlet.ServletException
- *  jakarta.servlet.ServletRequest
- *  jakarta.servlet.ServletResponse
- *  jakarta.servlet.annotation.WebFilter
- *  jakarta.servlet.http.HttpServletRequest
- *  jakarta.servlet.http.HttpServletResponse
- *  lombok.Generated
- *  org.slf4j.Logger
- *  org.slf4j.LoggerFactory
- *  org.springframework.beans.factory.annotation.Value
- *  org.springframework.core.annotation.Order
- *  org.springframework.stereotype.Component
- *  org.springframework.util.AntPathMatcher
- *  org.springframework.web.filter.OncePerRequestFilter
- *  org.springframework.web.util.ContentCachingRequestWrapper
- *  org.springframework.web.util.ContentCachingResponseWrapper
- */
 package br.inatel.publishermanager.filter;
 
 import jakarta.servlet.FilterChain;

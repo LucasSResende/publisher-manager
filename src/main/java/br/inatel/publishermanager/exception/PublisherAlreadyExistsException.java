@@ -1,10 +1,3 @@
-/*
- * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  br.inatel.publishermanager.exception.PublisherAlreadyExistsException
- *  br.inatel.publishermanager.model.entity.Publisher
- */
 package br.inatel.publishermanager.exception;
 
 import br.inatel.publishermanager.model.entity.Publisher;

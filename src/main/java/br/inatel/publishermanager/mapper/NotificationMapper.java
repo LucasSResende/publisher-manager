@@ -1,11 +1,4 @@
-/*
- * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  br.inatel.publishermanager.mapper.NotificationMapper
- *  br.inatel.publishermanager.model.dto.NotificationDTO
- *  br.inatel.publishermanager.model.entity.Notification
- */
+
 package br.inatel.publishermanager.mapper;
 
 import br.inatel.publishermanager.model.dto.NotificationDTO;
