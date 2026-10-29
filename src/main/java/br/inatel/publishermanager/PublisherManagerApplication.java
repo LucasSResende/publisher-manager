@@ -1,11 +1,4 @@
-/*
- * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  br.inatel.publishermanager.PublisherManagerApplication
- *  org.springframework.boot.SpringApplication
- *  org.springframework.boot.autoconfigure.SpringBootApplication
- */
+
 package br.inatel.publishermanager;
 
 import org.springframework.boot.SpringApplication;

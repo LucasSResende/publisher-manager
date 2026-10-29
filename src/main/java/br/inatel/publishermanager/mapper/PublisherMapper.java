@@ -1,11 +1,3 @@
-/*
- * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  br.inatel.publishermanager.mapper.PublisherMapper
- *  br.inatel.publishermanager.model.dto.PublisherDTO
- *  br.inatel.publishermanager.model.entity.Publisher
- */
 package br.inatel.publishermanager.mapper;
 
 import br.inatel.publishermanager.model.dto.PublisherDTO;

@@ -1,28 +1,3 @@
-/*
- * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  br.inatel.publishermanager.exception.PublisherAlreadyExistsException
- *  br.inatel.publishermanager.handler.ControllerExceptionHandler
- *  jakarta.servlet.http.HttpServletRequest
- *  lombok.Generated
- *  org.hibernate.exception.JDBCConnectionException
- *  org.slf4j.Logger
- *  org.slf4j.LoggerFactory
- *  org.springframework.beans.factory.annotation.Value
- *  org.springframework.http.HttpStatus
- *  org.springframework.http.HttpStatusCode
- *  org.springframework.http.ProblemDetail
- *  org.springframework.validation.BindException
- *  org.springframework.web.bind.MethodArgumentNotValidException
- *  org.springframework.web.bind.annotation.ControllerAdvice
- *  org.springframework.web.bind.annotation.ExceptionHandler
- *  org.springframework.web.bind.annotation.ResponseBody
- *  org.springframework.web.bind.annotation.ResponseStatus
- *  org.springframework.web.method.HandlerMethod
- *  tools.jackson.databind.DatabindException
- *  tools.jackson.databind.exc.InvalidFormatException
- */
 package br.inatel.publishermanager.handler;
 
 import br.inatel.publishermanager.exception.PublisherAlreadyExistsException;

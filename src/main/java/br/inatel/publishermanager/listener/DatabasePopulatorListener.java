@@ -1,19 +1,3 @@
-/*
- * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  br.inatel.publishermanager.exception.PublisherAlreadyExistsException
- *  br.inatel.publishermanager.listener.DatabasePopulatorListener
- *  br.inatel.publishermanager.model.dto.PublisherDTO
- *  br.inatel.publishermanager.service.PublisherService
- *  lombok.Generated
- *  org.slf4j.Logger
- *  org.slf4j.LoggerFactory
- *  org.springframework.beans.factory.annotation.Autowired
- *  org.springframework.boot.context.event.ApplicationReadyEvent
- *  org.springframework.context.ApplicationListener
- *  org.springframework.stereotype.Component
- */
 package br.inatel.publishermanager.listener;
 
 import br.inatel.publishermanager.exception.PublisherAlreadyExistsException;
