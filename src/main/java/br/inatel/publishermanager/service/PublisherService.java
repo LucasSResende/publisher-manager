@@ -1,6 +1,7 @@
 package br.inatel.publishermanager.service;
 
 import br.inatel.publishermanager.exception.PublisherAlreadyExistsException;
+import br.inatel.publishermanager.exception.PublisherNotFoundException;
 import br.inatel.publishermanager.mapper.PublisherMapper;
 import br.inatel.publishermanager.model.dto.PublisherDTO;
 import br.inatel.publishermanager.model.entity.Publisher;
@@ -46,5 +47,22 @@ public class PublisherService {
 
     public List<PublisherDTO> getAllPublisher() {
         return PublisherMapper.toPublisherDTOList(this.publisherRepository.findAll());
+    }
+
+    public PublisherDTO updatePublisher(String id, PublisherDTO publisherDTO) {
+        Publisher existing = this.publisherRepository.findById(id)
+                .orElseThrow(() -> new PublisherNotFoundException(id));
+        existing.setName(publisherDTO.getName());
+        Publisher saved = this.publisherRepository.save(existing);
+        this.notificationService.notificationCallback();
+        return PublisherMapper.toPublisherDTO(saved);
+    }
+
+    public void deletePublisher(String id) {
+        if (!this.publisherRepository.existsById(id)) {
+            throw new PublisherNotFoundException(id);
+        }
+        this.publisherRepository.deleteById(id);
+        this.notificationService.notificationCallback();
     }
 }

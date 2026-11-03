@@ -1,5 +1,6 @@
 package br.inatel.publishermanager.controller;
 
+import br.inatel.publishermanager.exception.PublisherNotFoundException;
 import br.inatel.publishermanager.model.dto.PublisherDTO;
 import br.inatel.publishermanager.service.PublisherService;
 import jakarta.validation.Valid;
@@ -32,8 +33,27 @@ public class PublisherController {
         return ResponseEntity.ok(publisherDTOList);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<PublisherDTO> getPublisherById(@PathVariable String id) {
+        return this.publisherService.getPublisherById(id).stream()
+                .findFirst()
+                .map(ResponseEntity::ok)
+                .orElseThrow(() -> new PublisherNotFoundException(id));
+    }
+
     @PostMapping
     public ResponseEntity<PublisherDTO> savePublisher(@Valid @RequestBody PublisherDTO publisherDTO) {
         return new ResponseEntity<>(this.publisherService.savePublisher(publisherDTO), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PublisherDTO> updatePublisher(@PathVariable String id, @Valid @RequestBody PublisherDTO publisherDTO) {
+        return ResponseEntity.ok(this.publisherService.updatePublisher(id, publisherDTO));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePublisher(@PathVariable String id) {
+        this.publisherService.deletePublisher(id);
+        return ResponseEntity.noContent().build();
     }
 }

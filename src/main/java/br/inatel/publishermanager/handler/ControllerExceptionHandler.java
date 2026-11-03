@@ -1,6 +1,7 @@
 package br.inatel.publishermanager.handler;
 
 import br.inatel.publishermanager.exception.PublisherAlreadyExistsException;
+import br.inatel.publishermanager.exception.PublisherNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import java.net.URI;
 import java.util.Arrays;
@@ -27,76 +28,87 @@ import tools.jackson.databind.exc.InvalidFormatException;
 public class ControllerExceptionHandler {
     @Generated
     private static final Logger log = LoggerFactory.getLogger(ControllerExceptionHandler.class);
-    @Value(value="${server.host}")
+    @Value(value="${server.host:localhost}")
     private String serverHost;
-    @Value(value="${server.port}")
+    @Value(value="${server.port:8080}")
     private String serverPort;
-    @Value(value="${publisher-manager.error.show-stacktrace}")
+    @Value(value="${publisher-manager.error.show-stacktrace:false}")
     private Boolean showStackTrace;
 
     @ExceptionHandler(value={PublisherAlreadyExistsException.class})
     @ResponseStatus(value=HttpStatus.BAD_REQUEST)
     public ProblemDetail publisherAlreadyExistsException(PublisherAlreadyExistsException publisherAlreadyExistsException, HandlerMethod handlerMethod, HttpServletRequest request) {
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail((HttpStatusCode)HttpStatus.BAD_REQUEST, (String)this.getErrorMessage((Exception)publisherAlreadyExistsException));
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, this.getErrorMessage(publisherAlreadyExistsException));
         problemDetail.setTitle("Publisher already exists");
         problemDetail.setType(URI.create(this.getErrorType()));
         problemDetail.setInstance(URI.create(request.getRequestURI()));
-        this.setStackTrace(problemDetail, (Exception)publisherAlreadyExistsException);
+        this.setStackTrace(problemDetail, publisherAlreadyExistsException);
+        return problemDetail;
+    }
+
+    @ExceptionHandler(value={PublisherNotFoundException.class})
+    @ResponseStatus(value=HttpStatus.NOT_FOUND)
+    public ProblemDetail publisherNotFoundException(PublisherNotFoundException publisherNotFoundException, HandlerMethod handlerMethod, HttpServletRequest request) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, this.getErrorMessage(publisherNotFoundException));
+        problemDetail.setTitle("Publisher not found");
+        problemDetail.setType(URI.create(this.getErrorType()));
+        problemDetail.setInstance(URI.create(request.getRequestURI()));
+        this.setStackTrace(problemDetail, publisherNotFoundException);
         return problemDetail;
     }
 
     @ExceptionHandler(value={InvalidFormatException.class})
     @ResponseStatus(value=HttpStatus.BAD_REQUEST)
     public ProblemDetail invalidFormatException(InvalidFormatException invalidFormatException, HandlerMethod handlerMethod, HttpServletRequest request) {
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail((HttpStatusCode)HttpStatus.BAD_REQUEST, (String)this.getErrorMessage((Exception)invalidFormatException));
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, this.getErrorMessage(invalidFormatException));
         problemDetail.setTitle("Invalid information format");
         problemDetail.setType(URI.create(this.getErrorType()));
         problemDetail.setInstance(URI.create(request.getRequestURI()));
-        this.setStackTrace(problemDetail, (Exception)invalidFormatException);
+        this.setStackTrace(problemDetail, invalidFormatException);
         return problemDetail;
     }
 
     @ExceptionHandler(value={DatabindException.class})
     @ResponseStatus(value=HttpStatus.BAD_REQUEST)
     public ProblemDetail jsonMappingException(DatabindException jsonMappingException, HandlerMethod handlerMethod, HttpServletRequest request) {
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail((HttpStatusCode)HttpStatus.BAD_REQUEST, (String)this.getErrorMessage((Exception)jsonMappingException));
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, this.getErrorMessage(jsonMappingException));
         problemDetail.setTitle("Malformed JSON error");
         problemDetail.setType(URI.create(this.getErrorType()));
         problemDetail.setInstance(URI.create(request.getRequestURI()));
-        this.setStackTrace(problemDetail, (Exception)jsonMappingException);
+        this.setStackTrace(problemDetail, jsonMappingException);
         return problemDetail;
     }
 
     @ExceptionHandler(value={MethodArgumentNotValidException.class})
     @ResponseStatus(value=HttpStatus.BAD_REQUEST)
     public ProblemDetail methodArgumentNotValidException(MethodArgumentNotValidException methodArgumentNotValidException, HandlerMethod handlerMethod, HttpServletRequest request) {
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail((HttpStatusCode)HttpStatus.BAD_REQUEST, (String)this.getErrorMessage((BindException)methodArgumentNotValidException));
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, this.getErrorMessage(methodArgumentNotValidException));
         problemDetail.setTitle("Input validation error");
         problemDetail.setType(URI.create(this.getErrorType()));
         problemDetail.setInstance(URI.create(request.getRequestURI()));
-        this.setStackTrace(problemDetail, (Exception)methodArgumentNotValidException);
+        this.setStackTrace(problemDetail, methodArgumentNotValidException);
         return problemDetail;
     }
 
     @ExceptionHandler(value={JDBCConnectionException.class})
     @ResponseStatus(value=HttpStatus.SERVICE_UNAVAILABLE)
     public ProblemDetail jDBCConnectionException(JDBCConnectionException jDBCConnectionException, HandlerMethod handlerMethod, HttpServletRequest request) {
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail((HttpStatusCode)HttpStatus.SERVICE_UNAVAILABLE, (String)this.getErrorMessage((Exception)jDBCConnectionException));
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.SERVICE_UNAVAILABLE, this.getErrorMessage(jDBCConnectionException));
         problemDetail.setTitle("Database connection issue");
         problemDetail.setType(URI.create(this.getErrorType()));
         problemDetail.setInstance(URI.create(request.getRequestURI()));
-        this.setStackTrace(problemDetail, (Exception)jDBCConnectionException);
+        this.setStackTrace(problemDetail, jDBCConnectionException);
         return problemDetail;
     }
 
     @ExceptionHandler(value={NullPointerException.class})
     @ResponseStatus(value=HttpStatus.INTERNAL_SERVER_ERROR)
     public ProblemDetail nullPointerException(NullPointerException nullPointerException, HandlerMethod handlerMethod, HttpServletRequest request) {
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail((HttpStatusCode)HttpStatus.INTERNAL_SERVER_ERROR, (String)this.getErrorMessage((Exception)nullPointerException));
-        problemDetail.setTitle("");
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, this.getErrorMessage(nullPointerException));
+        problemDetail.setTitle("Null pointer exception");
         problemDetail.setType(URI.create(this.getErrorType()));
         problemDetail.setInstance(URI.create(request.getRequestURI()));
-        this.setStackTrace(problemDetail, (Exception)nullPointerException);
+        this.setStackTrace(problemDetail, nullPointerException);
         return problemDetail;
     }
 
@@ -109,8 +121,8 @@ public class ControllerExceptionHandler {
     }
 
     private void setStackTrace(ProblemDetail problemDetail, Exception e) {
-        if (this.showStackTrace.booleanValue()) {
-            problemDetail.setProperty("stackTrace", (Object)Arrays.stream(e.getStackTrace()).map(o -> o.toString()).reduce((o1, o2) -> String.format("%s, %s", o1, o2)).get());
+        if (this.showStackTrace != null && this.showStackTrace) {
+            problemDetail.setProperty("stackTrace", Arrays.stream(e.getStackTrace()).map(o -> o.toString()).reduce((o1, o2) -> String.format("%s, %s", o1, o2)).get());
         }
     }
 
@@ -118,4 +130,3 @@ public class ControllerExceptionHandler {
         return String.format("http://%s:%s/error/types", this.serverHost, this.serverPort);
     }
 }
-
