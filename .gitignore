@@ -9,6 +9,9 @@
 # Maven
 /target/
 
+# Copilot agent configuration
+/.agents/
+
 # IntelliJ IDEA user-specific files
 *.iml
 .idea/workspace.xml
